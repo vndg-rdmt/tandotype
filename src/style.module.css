@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&display=swap');
+
+* {
+    --system-background: rgba(230,230,230);
+    --system-font-color: rgb(176,176,176);
+    --font-size-big: 26px; 
+    --font: 'Roboto Mono', monospace;
+
+    font-family: var(--font);
+}
+
+.app {
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+
+    scroll-behavior: none;
+    overflow: hidden;
+    
+    background-color: var(--system-background);
+}
+
+.keyboard {
+    width: 100%;
+
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.keyButton {
+    color: var(--system-font-color);
+    font-size: var(--font-size-big);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100px;
+    height: 100px;
+    border: 1px solid var(--system-font-color);
+    text-transform: uppercase;
+}
+
+.keypressed {
+    background-color: rgb(130, 130, 130);
+}
