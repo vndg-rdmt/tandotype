@@ -1,7 +1,7 @@
 import { TDUtilityComponent } from './application/utility-component';
 import { TDKeyboardComponent } from './components/keyboard';
-import { TDEventSubsribeCallback, TDTypingUtilityConfig, TDTimerUtilityConfig, TDUtility, TDUtilityConfig, TDUtilityLoader, TandotypeConfig } from './types';
-import { getLangSwitchDispatcher } from './utilities/tools';
+import { TDTypingUtilityConfig, TDTimerUtilityConfig, TDUtility, TDUtilityLoader, TandotypeConfig, empty_eventy, TDUtilityConfig, TDEventSubsribeCallback } from './types';
+import { getLangSwitchDispatcher } from './tools';
 import { TDEventCatcher, TDTimeEventCatcher, TDTypingEventCatcher } from './event-catchers';
 
 export class TandotypeApp {
@@ -36,9 +36,9 @@ export class TandotypeApp {
     public readonly loadTypingUtilities: TDUtilityLoader<TDUtility<TDTypingUtilityConfig>>;
     public readonly loadTimerUtilities:  TDUtilityLoader<TDUtility<TDTimerUtilityConfig>>;
 
-    // WARN: type-unsafe
-    private getUtilityLoader<UTILS extends TDUtility<any>>(subscriber: TDEventCatcher<string, any>): TDUtilityLoader<UTILS> {
-        return (...utilities: UTILS[]) => {
+    private getUtilityLoader<T extends string, E extends empty_eventy, U extends TDUtility<TDUtilityConfig<TDEventSubsribeCallback<T, E>>>>(subscriber: TDEventCatcher<T, E>):
+        TDUtilityLoader<U> {
+        return (...utilities: U[]) => {
             this.root.append(
                 ...utilities.map((util) => util({
                     elementConstructor: TDUtilityComponent,
