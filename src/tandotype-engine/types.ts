@@ -78,6 +78,7 @@ export interface TandotypeConfig {
     keysLocales: KeysLocales;  
     cssClasses: {
         app:            string,
+        utilsHolder:    string,
         keyboard:       string,
         keybutton:      string,
         keypressed:     string,

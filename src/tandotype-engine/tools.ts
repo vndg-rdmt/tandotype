@@ -2,6 +2,8 @@
 /**
  * Starts listening for user language changes.
  * Executes provided callback on event.
+ * @deprecated
+ * @todo
  */
 export function getLangSwitchDispatcher(callback: (lang: string) => void) {
     let currentLang: string = '';

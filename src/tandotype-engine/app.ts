@@ -6,11 +6,13 @@ import { TDEventCatcher, TDTimeEventCatcher, TDTypingEventCatcher } from './even
 
 export class TandotypeApp {
     constructor(config: TandotypeConfig) {
-        this.root.className = config.cssClasses.app;
+        this.root.className        = config.cssClasses.app;
+        this.utilsHolder.className = config.cssClasses.utilsHolder;
         this.typingListener = new TDTypingEventCatcher();
         this.timerListener  = new TDTimeEventCatcher();
 
-        this.root.appendChild(
+        this.root.append(
+            this.utilsHolder,
             new TDKeyboardComponent({
                 localesMapping:         config.keysLocales,
                 keyboardStyle:          config.cssClasses.keyboard,
@@ -18,7 +20,8 @@ export class TandotypeApp {
                 keypressedStyle:        config.cssClasses.keypressed,
                 listenLanguageChanges:  getLangSwitchDispatcher,
                 typingSubsribeCallback: this.typingListener.subsribeEvent,
-            })
+            }),
+
         );
 
         this.loadTypingUtilities = this.
@@ -29,9 +32,11 @@ export class TandotypeApp {
 
     }
 
-    private readonly root: HTMLElement = document.createElement('div');
+    private readonly root:         HTMLElement = document.createElement('div');
+    private readonly utilsHolder: HTMLElement  = document.createElement('div');
+
     private readonly typingListener: TDTypingEventCatcher;
-    private readonly timerListener: TDTimeEventCatcher;
+    private readonly timerListener:  TDTimeEventCatcher;
 
     public readonly loadTypingUtilities: TDUtilityLoader<TDUtility<TDTypingUtilityConfig>>;
     public readonly loadTimerUtilities:  TDUtilityLoader<TDUtility<TDTimerUtilityConfig>>;
@@ -39,7 +44,7 @@ export class TandotypeApp {
     private getUtilityLoader<T extends string, E extends empty_eventy, U extends TDUtility<TDUtilityConfig<TDEventSubsribeCallback<T, E>>>>(subscriber: TDEventCatcher<T, E>):
         TDUtilityLoader<U> {
         return (...utilities: U[]) => {
-            this.root.append(
+            this.utilsHolder.append(
                 ...utilities.map((util) => util({
                     elementConstructor: TDUtilityComponent,
                     subscribeCallback:  subscriber.subsribeEvent,
