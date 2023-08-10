@@ -46,3 +46,18 @@
 .keypressed {
     background-color: rgb(130, 130, 130);
 }
+
+
+.a {
+    width: 200px;
+    height: 200px;
+    background-color: aquamarine;
+}
+
+.b {
+    color: blue;
+}
+
+.c {
+    color: red;
+}

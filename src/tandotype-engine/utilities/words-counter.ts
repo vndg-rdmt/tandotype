@@ -1,6 +1,6 @@
-import { TDUtilityConfig } from "../types";
+import { TDTypingUtilityConfig, TDUtility } from "../types";
 
-export function TDWordsCounterUtility(config: TDUtilityConfig) {
+export const TDWordsCounterUtility: TDUtility<TDTypingUtilityConfig> = function(config) {
     let lastChar: string = '';
     config.subscribeCallback('keypress', (e) => {
         console.log(e.code)

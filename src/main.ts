@@ -4,6 +4,7 @@ import style from './style.module.css';
 
 import { TandotypeApp } from "./tandotype-engine/app";
 import { TandotypeConfig } from "./tandotype-engine/types";
+import { TDTimeDateUtility } from './tandotype-engine/utilities/timer';
 
 
 function main(): void {
@@ -22,6 +23,8 @@ function main(): void {
     };
 
     const app = new TandotypeApp(config);
-    app.loadUtilities()
+    app.loadTimerUtilities(        
+        TDTimeDateUtility({ nameStyling: style.a, valueStyling: style.b, elementStyling: style.c}),
+    );
     app.render(document.body);
 }

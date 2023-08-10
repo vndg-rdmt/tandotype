@@ -1,14 +1,15 @@
 import { TDUtilityComponent } from './application/utility-component';
 import { TDKeyboardComponent } from './components/keyboard';
-import { TDUtility, TandotypeConfig } from './types';
+import { TDEventSubsribeCallback, TDTypingUtilityConfig, TDTimerUtilityConfig, TDUtility, TDUtilityConfig, TDUtilityLoader, TandotypeConfig } from './types';
 import { getLangSwitchDispatcher } from './utilities/tools';
-import { TDTypingEventCatcher } from './utilities/typing';
+import { TDEventCatcher, TDTimeEventCatcher, TDTypingEventCatcher } from './event-catchers';
 
 export class TandotypeApp {
     constructor(config: TandotypeConfig) {
         this.root.className = config.cssClasses.app;
         this.typingListener = new TDTypingEventCatcher();
-        
+        this.timerListener  = new TDTimeEventCatcher();
+
         this.root.appendChild(
             new TDKeyboardComponent({
                 localesMapping:         config.keysLocales,
@@ -19,19 +20,33 @@ export class TandotypeApp {
                 typingSubsribeCallback: this.typingListener.subsribeEvent,
             })
         );
+
+        this.loadTypingUtilities = this.
+            getUtilityLoader(this.typingListener);
+
+        this.loadTimerUtilities  = this.
+            getUtilityLoader(this.timerListener);
+
     }
 
     private readonly root: HTMLElement = document.createElement('div');
-    private readonly typingListener: TDTypingEventCatcher
+    private readonly typingListener: TDTypingEventCatcher;
+    private readonly timerListener: TDTimeEventCatcher;
 
-    public loadUtilities(...utilities: TDUtility[]): void {
-        utilities.forEach((util) => {
-            util({
-                elementConstructor: TDUtilityComponent,
-                subscribeCallback:  this.typingListener.subsribeEvent,
-            });
-            this.appStatistics.loadedUtilities++;
-        });
+    public readonly loadTypingUtilities: TDUtilityLoader<TDUtility<TDTypingUtilityConfig>>;
+    public readonly loadTimerUtilities:  TDUtilityLoader<TDUtility<TDTimerUtilityConfig>>;
+
+    // WARN: type-unsafe
+    private getUtilityLoader<UTILS extends TDUtility<any>>(subscriber: TDEventCatcher<string, any>): TDUtilityLoader<UTILS> {
+        return (...utilities: UTILS[]) => {
+            this.root.append(
+                ...utilities.map((util) => util({
+                    elementConstructor: TDUtilityComponent,
+                    subscribeCallback:  subscriber.subsribeEvent,
+                }))
+            );
+            this.appStatistics.loadedUtilities += utilities.length;
+        };
     }
 
     public appStatistics = {
@@ -42,5 +57,6 @@ export class TandotypeApp {
         mount.appendChild(this.root);
 
         this.typingListener.listen();
+        this.timerListener.listen();
     }
 }

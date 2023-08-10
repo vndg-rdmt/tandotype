@@ -1,4 +1,4 @@
-import { KeysLocales, TDEventSubsribeCallback, TypingEventType } from "../types";
+import { KeysLocales, TDEventSubsribeCallback, TDTypingEventType } from "../types";
 
 
 export interface KeyboardComponentConfig {
@@ -7,7 +7,7 @@ export interface KeyboardComponentConfig {
     keyboardStyle:   string;
     keypressedStyle: string
     listenLanguageChanges: (callback: (lang: string) => void) => void;
-    typingSubsribeCallback: TDEventSubsribeCallback<TypingEventType, KeyboardEvent>;
+    typingSubsribeCallback: TDEventSubsribeCallback<TDTypingEventType, KeyboardEvent>;
 }
 
 /**
@@ -30,8 +30,11 @@ export class TDKeyboardComponent extends HTMLElement {
             )
         );
 
-        config.typingSubsribeCallback('keydown', this.createKeyboardTypingCallback(config.keypressedStyle));
-        config.typingSubsribeCallback('keyup',   this.createKeyboardTypingCallback(config.keypressedStyle));
+        config.typingSubsribeCallback(
+            'keydown', this.createKeyboardTypingCallback(config.keypressedStyle, 'add'));
+
+        config.typingSubsribeCallback(
+            'keyup', this.createKeyboardTypingCallback(config.keypressedStyle, 'remove'));
     }
 
     /**
@@ -44,12 +47,10 @@ export class TDKeyboardComponent extends HTMLElement {
      * Creates a new function which looks up if keyboard-component
      * has element in its own alphabet for the pressed key and animates button.
      */
-    private createKeyboardTypingCallback(elemStyling: string) {
-        return (e: KeyboardEvent) => {            
+    private createKeyboardTypingCallback(elemStyling: string, modifierName: 'add' | 'remove') {
+        return (e: KeyboardEvent) => {
             const elem = this.existingKeysHolder.get(e.code);
-            if (elem != undefined && !e.repeat) {
-                elem.classList.toggle(elemStyling);
-            };
+            if (elem != undefined && !e.repeat) elem.classList[modifierName](elemStyling)
         }
     }
 
