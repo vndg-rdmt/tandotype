@@ -13,11 +13,11 @@ export const TDWordsTypedUtility: TDUtils<TDTypingUtilityConfig> = function(sett
             valueStyling:   settings.valueStyling,
         });
 
-        let last: string = '';
+        let last: string = 'Enter';
         const keyCodes = new Set(['Space', 'Enter']);
         config.subscribeCallback('keydown', (e) => {
             if (keyCodes.has(e.code) && !keyCodes.has(last)) {
-                elem.updateValue(wordsTyped++);
+                elem.updateValue(++wordsTyped);
             };
             last = e.code;
         });

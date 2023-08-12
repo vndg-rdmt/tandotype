@@ -34,9 +34,19 @@ export interface TDUtilityConfig<SBC extends TDEventSubsribeCallback<any, any>> 
     elementConstructor: new<T extends any>(config: TDUtilityElementConfig<T>) => TDUtilityComponent<T>;
     subscribeCallback: SBC;
 };
+
+/**
+ * Utlity configuration, which passed as an argument
+ * so the app-engine can manage itself, how to assemble
+ * utility properly, based on the utility type.
+ */
+export interface TDUndefinedUtilityConfig {
+    elementConstructor: new<T extends any>(config: TDUtilityElementConfig<T>) => TDUtilityComponent<T>;
+};
+
 // SUBMARK: defined utility config variations
-export type TDTypingUtilityConfig = TDUtilityConfig<TDTypingEventSub>;
-export type TDTimerUtilityConfig  = TDUtilityConfig<TDTimerEventSub>;
+export type TDTypingUtilityConfig     = TDUtilityConfig<TDTypingEventSub>;
+export type TDTimerUtilityConfig      = TDUtilityConfig<TDTimerEventSub>;
 
 /**
  * Utility itself.
@@ -45,6 +55,7 @@ export type TDTimerUtilityConfig  = TDUtilityConfig<TDTimerEventSub>;
  * defined config and event-responce-logic.
  */
 export type TDUtility<T extends TDUtilityConfig<TDEventSubsribeCallback<any, any>>> = (config: T) => TDUtilityComponent<any>;
+export type TDUndefinedUtility = (config: TDUndefinedUtilityConfig) => TDUtilityComponent<any>;
 
 
 // MARK: app-engine
@@ -72,7 +83,8 @@ export type TDUtility<T extends TDUtilityConfig<TDEventSubsribeCallback<any, any
  */
 export type KeysLocales = Map<string, string[]>;
 
-export type TDUtilityLoader<T extends TDUtility<TDUtilityConfig<TDEventSubsribeCallback<any, any>>>> = (...utilities: T[]) => void
+export type TDUtilityLoader<T extends TDUtility<TDUtilityConfig<TDEventSubsribeCallback<any, any>>>> = (...utilities: T[]) => TDUtilityComponent<any>[]
+export type TDUndefinedUtilityLoader = (...utilities: TDUndefinedUtility[]) => TDUtilityComponent<any>[]
 
 export interface TandotypeConfig {
     keysLocales: KeysLocales;  
@@ -94,3 +106,4 @@ export interface TDUtilitySettings {
 }
 
 export type TDUtils<T extends TDUtilityConfig<any>> = (settings: TDUtilitySettings) => TDUtility<T>
+export type TDUndefinedUtils = (settings: TDUtilitySettings) => TDUndefinedUtility
