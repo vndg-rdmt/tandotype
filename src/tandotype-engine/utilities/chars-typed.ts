@@ -6,7 +6,7 @@ export const TDCharsTypedUtility: TDUtils<TDTypingUtilityConfig> = function(sett
         let charsTyped: number = 0
 
         const elem = new config.elementConstructor<number>({
-            name:           'Characters',
+            name:           'Count',
             defaultValue:   charsTyped,
             elementStyling: settings.elementStyling,
             nameStyling:    settings.nameStyling,

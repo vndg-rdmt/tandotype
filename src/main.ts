@@ -6,18 +6,17 @@ import { TandotypeApp } from "./tandotype-engine/app";
 import { TandotypeConfig } from "./tandotype-engine/types";
 import { TDCharsTypedUtility } from './tandotype-engine/utilities/chars-typed';
 import { TDEmptyBlockUtility } from './tandotype-engine/utilities/empty-block';
-// import { TDTimeDateUtility } from './tandotype-engine/utilities/timer';
-import { TDCharsTypingSpeedUtility } from './tandotype-engine/utilities/typing-speed';
 import { TDWordsTypedUtility } from './tandotype-engine/utilities/words-types';
+// import { TDTimeDateUtility } from './tandotype-engine/utilities/timer';
+// import { TDCharsTypingSpeedUtility } from './tandotype-engine/utilities/typing-speed';
+// import { TDWordsTypedUtility } from './tandotype-engine/utilities/words-types';
 
 
 function main(): void {
     const config: TandotypeConfig = {
-        keysLocales: new Map([
-            ['default', 'qwertyuiopasdfghjklzxcvbnm'.split('')],
-        ]),
         cssClasses: {
             app:            style.app,
+            testArea:       style.textArea,
             utilsHolder:    style.utilsHolder,
             keyboard:       style.keyboard,
             keybutton:      style.keyButton,
@@ -36,17 +35,21 @@ function main(): void {
         // - 2
         app.wrapUtils(style.actionUtilsSubblock,
             app.wrapUtils(style.topActionsWrapper,
+                ...app.loadTypingUtilities(
+                    TDCharsTypedUtility({elementStyling: [style.utilityBlock, style.flex1].join(' ') , nameStyling: '', valueStyling: ''}),
+                ),
                 ...app.loadUndefinedUtilites(
-                    TDEmptyBlockUtility({elementStyling: style.bigCharBlock, nameStyling: '', valueStyling: ''}),
-                    TDEmptyBlockUtility({elementStyling: style.bigEmptyBlock, nameStyling: '', valueStyling: ''}),
-                    TDEmptyBlockUtility({elementStyling: style.bigCharBlock, nameStyling: '', valueStyling: ''}),
+                    TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex2].join(' '), nameStyling: '', valueStyling: ''}),
+                ),
+                ...app.loadTypingUtilities(
+                    TDWordsTypedUtility({elementStyling: [style.utilityBlock, style.flex1].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
             ),
             app.wrapUtils(style.topActionsWrapper,
                 ...app.loadUndefinedUtilites(
-                    TDEmptyBlockUtility({elementStyling: style.bigCharBlock, nameStyling: '', valueStyling: ''}),
+                    TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex2].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
-                app.wrapUtils(style.secondColumnWrapperBottomOne,
+                app.wrapUtils([style.secondColumnWrapperBottomOne, style.flex1].join(' '),
                     ...app.loadUndefinedUtilites(
                         TDEmptyBlockUtility({elementStyling: style.defaultBlock, nameStyling: '', valueStyling: ''}),
                         TDEmptyBlockUtility({elementStyling: style.defaultBlock, nameStyling: '', valueStyling: ''}),
@@ -54,10 +57,7 @@ function main(): void {
                 ),
                 app.wrapUtils(style.lastFlexBasicBlock,
                     ...app.loadUndefinedUtilites(
-                        TDEmptyBlockUtility({elementStyling: style.lastFlexItems, nameStyling: '', valueStyling: ''}),
-                        TDEmptyBlockUtility({elementStyling: style.lastFlexItems, nameStyling: '', valueStyling: ''}),
-                        TDEmptyBlockUtility({elementStyling: style.lastFlexItems, nameStyling: '', valueStyling: ''}),
-                        TDEmptyBlockUtility({elementStyling: style.lastFlexItems, nameStyling: '', valueStyling: ''}),
+                        TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex1].join(' '), nameStyling: '', valueStyling: ''}),
                     ),
                 ),
             ),

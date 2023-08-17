@@ -4,6 +4,7 @@ import { TDTypingUtilityConfig, TDTimerUtilityConfig, TDUtility, TDUtilityLoader
 import { getLangSwitchDispatcher } from './tools';
 import { TDEventCatcher, TDTimeEventCatcher, TDTypingEventCatcher } from './event-catchers';
 import { TDEmptyBlockUtility } from './utilities/empty-block';
+import { TDInputComponent } from './components/input';
 
 export class TandotypeApp {
     constructor(config: TandotypeConfig) {
@@ -14,6 +15,10 @@ export class TandotypeApp {
 
         this.root.append(
             this.utilsHolder,
+            new TDInputComponent({
+                inputAreaStyle:         config.cssClasses.testArea,
+                typingSubsribeCallback: this.typingListener.subsribeEvent,
+            }),
             new TDKeyboardComponent({
                 localesMapping:         config.keysLocales,
                 keyboardStyle:          config.cssClasses.keyboard,
@@ -22,7 +27,6 @@ export class TandotypeApp {
                 listenLanguageChanges:  getLangSwitchDispatcher,
                 typingSubsribeCallback: this.typingListener.subsribeEvent,
             }),
-
         );
 
         this.loadTypingUtilities = this.

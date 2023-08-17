@@ -87,9 +87,13 @@ export type TDUtilityLoader<T extends TDUtility<TDUtilityConfig<TDEventSubsribeC
 export type TDUndefinedUtilityLoader = (...utilities: TDUndefinedUtility[]) => TDUtilityComponent<any>[]
 
 export interface TandotypeConfig {
-    keysLocales: KeysLocales;  
+    /**
+     * @deprecated
+     */
+    keysLocales?: KeysLocales;  
     cssClasses: {
         app:            string,
+        testArea:       string,
         utilsHolder:    string,
         keyboard:       string,
         keybutton:      string,
