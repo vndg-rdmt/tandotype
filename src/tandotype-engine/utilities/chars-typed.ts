@@ -1,12 +1,12 @@
 import { TDTypingUtilityConfig, TDUtils } from "../types";
 
 
-export const TDCharsTypedUtility: TDUtils<TDTypingUtilityConfig> = function(settings) {
+export const TDTapsCounterUtility: TDUtils<TDTypingUtilityConfig> = function(settings) {
     return (config) => {
         let charsTyped: number = 0
 
         const elem = new config.elementConstructor<number>({
-            name:           'Count',
+            name:           'Taps',
             defaultValue:   charsTyped,
             elementStyling: settings.elementStyling,
             nameStyling:    settings.nameStyling,

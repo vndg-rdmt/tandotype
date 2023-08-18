@@ -5,6 +5,7 @@ import { getLangSwitchDispatcher } from './tools';
 import { TDEventCatcher, TDTimeEventCatcher, TDTypingEventCatcher } from './event-catchers';
 import { TDEmptyBlockUtility } from './utilities/empty-block';
 import { TDInputComponent } from './components/input';
+import { TDLogotypeElement } from './components/logotype';
 
 export class TandotypeApp {
     constructor(config: TandotypeConfig) {
@@ -27,6 +28,7 @@ export class TandotypeApp {
                 listenLanguageChanges:  getLangSwitchDispatcher,
                 typingSubsribeCallback: this.typingListener.subsribeEvent,
             }),
+            new TDLogotypeElement("TandoType"),
         );
 
         this.loadTypingUtilities = this.

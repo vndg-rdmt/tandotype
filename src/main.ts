@@ -4,9 +4,11 @@ import style from './style.module.css';
 
 import { TandotypeApp } from "./tandotype-engine/app";
 import { TandotypeConfig } from "./tandotype-engine/types";
-import { TDCharsTypedUtility } from './tandotype-engine/utilities/chars-typed';
+import { TDTapsCounterUtility } from './tandotype-engine/utilities/chars-typed';
 import { TDEmptyBlockUtility } from './tandotype-engine/utilities/empty-block';
+import { TDCPMUtility } from './tandotype-engine/utilities/chars-per-minute';
 import { TDWordsTypedUtility } from './tandotype-engine/utilities/words-types';
+import { TDWPMUtility } from './tandotype-engine/utilities/words-per-minute';
 // import { TDTimeDateUtility } from './tandotype-engine/utilities/timer';
 // import { TDCharsTypingSpeedUtility } from './tandotype-engine/utilities/typing-speed';
 // import { TDWordsTypedUtility } from './tandotype-engine/utilities/words-types';
@@ -36,7 +38,7 @@ function main(): void {
         app.wrapUtils(style.actionUtilsSubblock,
             app.wrapUtils(style.topActionsWrapper,
                 ...app.loadTypingUtilities(
-                    TDCharsTypedUtility({elementStyling: [style.utilityBlock, style.flex1].join(' ') , nameStyling: '', valueStyling: ''}),
+                    TDTapsCounterUtility({elementStyling: [style.utilityBlock, style.flex1].join(' ') , nameStyling: '', valueStyling: ''}),
                 ),
                 ...app.loadUndefinedUtilites(
                     TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex2].join(' '), nameStyling: '', valueStyling: ''}),
@@ -46,20 +48,22 @@ function main(): void {
                 ),
             ),
             app.wrapUtils(style.topActionsWrapper,
-                ...app.loadUndefinedUtilites(
-                    TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex2].join(' '), nameStyling: '', valueStyling: ''}),
+                ...app.loadTimerUtilities(
+                    TDWPMUtility({elementStyling: [style.utilityBlock, style.flex1].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
-                app.wrapUtils([style.secondColumnWrapperBottomOne, style.flex1].join(' '),
-                    ...app.loadUndefinedUtilites(
-                        TDEmptyBlockUtility({elementStyling: style.defaultBlock, nameStyling: '', valueStyling: ''}),
-                        TDEmptyBlockUtility({elementStyling: style.defaultBlock, nameStyling: '', valueStyling: ''}),
-                    ),
+                ...app.loadTimerUtilities(
+                    TDCPMUtility({elementStyling: [style.utilityBlock, style.flex2].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
-                app.wrapUtils(style.lastFlexBasicBlock,
-                    ...app.loadUndefinedUtilites(
-                        TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex1].join(' '), nameStyling: '', valueStyling: ''}),
-                    ),
-                ),
+                // app.wrapUtils([style.secondColumnWrapperBottomOne, style.flex1].join(' '),
+                //     ...app.loadUndefinedUtilites(
+                //         TDEmptyBlockUtility({elementStyling: style.defaultBlock, nameStyling: '', valueStyling: ''}),
+                //     ),
+                // ),
+                // app.wrapUtils(style.lastFlexBasicBlock,
+                //     ...app.loadUndefinedUtilites(
+                //         TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex1].join(' '), nameStyling: '', valueStyling: ''}),
+                //     ),
+                // ),
             ),
         ),
     );

@@ -13,13 +13,12 @@
 
     --color-orange: rgb(255,69,0);
     --color-orange-pressed: rgb(100,12,0);
-
     --color-keybutton: rgb(229, 227, 216);
+    --color-keybutton-pressed: rgb(60, 58, 58);
 
     font-family: var(--font);
 }
 
-/* Global */
 .app {
     position: fixed;
     width: 74%;
@@ -35,14 +34,13 @@
     overflow: hidden;
     
     background-color: var(--system-app-background);
-    box-shadow: 10px 16px 2px rgba(0,0,0,0.6);
+    box-shadow: 12px 12px 1px rgba(0,0,0,0.6);
     border: var(--system-border);
     border-radius: 6px;
 
     user-select: none;
 }
 
-/* Sub-global */
 .utilsHolder {
     display: flex;
     flex-direction: row;
@@ -61,6 +59,13 @@
     width: 100%;
     padding: 0px 10% 0px 10%;
     overflow: hiddend;
+    cursor: default;
+}
+
+.textArea::placeholder {
+    color: var(--color-orange);
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .textArea::selection {
@@ -116,21 +121,22 @@
 
     border: var(--system-border);
     border-radius: 6px;
+
 }
 
 .utilityBlock > :first-child {
     width: auto;
     height: 100%;
-    margin: 12px;
-    text-align: left;
-    font-size: 100%;
+    padding: 10px;
+    text-align: right;
+    font-size: 115%;
 }
 
 .utilityBlock > :last-child {
     width: auto;
-    margin: 12px;
-    text-align: right;
-    font-size: 130%;
+    text-align: left;
+    font-size: 150%;
+    padding: 10px;
 }
 
 .flex1 {
@@ -154,8 +160,8 @@
 }
 
 .keypressed {
-    transition-duration: 100ms;
-    background-color: rgb(40,40,40);
+    transition-duration: 40ms;
+    background-color: var(--color-keybutton-pressed);
     margin-bottom: -6px;
 }
 
@@ -171,21 +177,9 @@
     font-weight: 500;
 }
 
-.utilityName {
-    padding: 10px;
-    font-size: 15px;
-    text-transform: capitalize;
-}
-
-.utilityValue {
-    font-size: 17px;
-    padding: 10px;
-    text-align: right;
-}
-
-
 .actionUtilsSubblock {
     display: flex;
+    flex: 2;
     flex-direction: column;
     width: 100%;
     height: 100%;
@@ -231,5 +225,5 @@
 .helperHeaderBlock {
     width: 100%;
     height: 100%;
-    max-width: 400px;
+    flex: 1;
 }

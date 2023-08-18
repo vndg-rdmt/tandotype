@@ -8,13 +8,14 @@ export interface TDInputComponentConfig {
 export class TDInputComponent extends HTMLElement {
     public constructor(config: TDInputComponentConfig) {
         super();
-        let counter = 0;
+        
         const elem = document.createElement('input');
         this.style.width = '100%'
         elem.type = 'text'
         elem.className = config.inputAreaStyle;
         elem.style.resize = 'none';
         elem.spellcheck = false;
+        elem.placeholder = "Hi :3 Just start typing";
         window.addEventListener('click', () => elem.focus())
         window.addEventListener('load', () => elem.focus())
         window.addEventListener('keypress', (e) => {
