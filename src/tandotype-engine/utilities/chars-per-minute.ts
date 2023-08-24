@@ -20,9 +20,7 @@ export const TDCPMUtility: TDUtils<TDTimerUtilityConfig> = function(settings) {
         })
         config.subscribeCallback('anim', () => {
             elem.updateValue(
-                Math.ceil(
-                    words_counter / (performance.now() - start)*1000*60
-                )
+                Math.ceil(words_counter / (performance.now() - start) * 1000 * 60)
             );
         });
         config.subscribeCallback('min', () => {

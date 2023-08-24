@@ -38,21 +38,21 @@ function main(): void {
         app.wrapUtils(style.actionUtilsSubblock,
             app.wrapUtils(style.topActionsWrapper,
                 ...app.loadTypingUtilities(
-                    TDTapsCounterUtility({elementStyling: [style.utilityBlock, style.flex1].join(' ') , nameStyling: '', valueStyling: ''}),
+                    TDTapsCounterUtility({elementStyling: [style.utilityBlock, style.flex1, style.glass_with_green].join(' ') , nameStyling: '', valueStyling: ''}),
                 ),
                 ...app.loadUndefinedUtilites(
-                    TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex2].join(' '), nameStyling: '', valueStyling: ''}),
+                    TDEmptyBlockUtility({elementStyling: [style.utilityBlock, style.flex2, style.emptyBlockMarker].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
                 ...app.loadTypingUtilities(
-                    TDWordsTypedUtility({elementStyling: [style.utilityBlock, style.flex1].join(' '), nameStyling: '', valueStyling: ''}),
+                    TDWordsTypedUtility({elementStyling: [style.utilityBlock, style.flex1, style.glass_with_yellow].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
             ),
             app.wrapUtils(style.topActionsWrapper,
                 ...app.loadTimerUtilities(
-                    TDWPMUtility({elementStyling: [style.utilityBlock, style.flex1].join(' '), nameStyling: '', valueStyling: ''}),
+                    TDCPMUtility({elementStyling: [style.utilityBlock, style.flex1, style.neon_yellow].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
                 ...app.loadTimerUtilities(
-                    TDCPMUtility({elementStyling: [style.utilityBlock, style.flex2].join(' '), nameStyling: '', valueStyling: ''}),
+                    TDWPMUtility({elementStyling: [style.utilityBlock, style.flex2, style.blocky_red ].join(' '), nameStyling: '', valueStyling: ''}),
                 ),
                 // app.wrapUtils([style.secondColumnWrapperBottomOne, style.flex1].join(' '),
                 //     ...app.loadUndefinedUtilites(

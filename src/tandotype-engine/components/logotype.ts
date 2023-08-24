@@ -10,7 +10,6 @@ export class TDLogotypeElement extends HTMLElement {
         this.style.overflow = 'hidden';
         this.style.height = '140px';
         this.style.textAlign = 'center';
-
         this.appendChild(this.getBadge()).textContent = text
     }
 
